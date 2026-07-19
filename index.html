@@ -1,52 +1,350 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1726"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="assets/icon-192.png"><title>GregFit</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GregFit">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icons/icon.svg">
+<link rel="apple-touch-icon" href="assets/icons/icon.svg">
+<title>GregFit</title>
 <style>
-:root{--navy:#0b1726;--teal:#0f766e;--teal2:#115e59;--bg:#f3f6f8;--card:#fff;--text:#142033;--muted:#687588;--line:#dbe2e8;--good:#dcfce7;--warn:#fff7ed;--red:#b91c1c}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}header{background:var(--navy);color:#fff;padding:calc(13px + env(safe-area-inset-top)) 16px 13px;position:sticky;top:0;z-index:20}header .top{max-width:820px;margin:auto;display:flex;justify-content:space-between;align-items:center}header h1{margin:0;font-size:20px}header small{color:#b8c5d2}.status-pill{background:#173249;padding:6px 10px;border-radius:999px;font-size:12px}main{max-width:820px;margin:auto;padding:14px 14px calc(92px + env(safe-area-inset-bottom))}.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:12px}.hero{background:linear-gradient(135deg,#0b1726,#173249);color:#fff;border:0}.hero h2{font-size:27px;margin:5px 0}.hero p{color:#d2dde7}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#eef3f5;border-radius:13px;padding:10px;text-align:center}.metric b{display:block;font-size:21px}.metric span{font-size:11px;color:var(--muted)}button{font:inherit;cursor:pointer}.primary,.secondary,.danger{border-radius:13px;padding:12px 14px;font-weight:750}.primary{border:0;background:var(--teal);color:#fff}.primary:active{background:var(--teal2)}.secondary{background:#fff;border:1px solid var(--line)}.danger{background:#fff;border:1px solid #fca5a5;color:var(--red)}.wide{width:100%}.tabs{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:7px 6px calc(7px + env(safe-area-inset-bottom));z-index:30}.tabs button{border:0;background:transparent;color:var(--muted);font-size:11px;padding:6px 2px}.tabs button b{display:block;font-size:20px;margin-bottom:2px}.tabs button.active{color:var(--teal)}.eyebrow{color:var(--teal);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:12px}.exercise h2{font-size:26px;margin:5px 0}.meta{color:var(--muted);margin-bottom:10px}.exercise-img{width:100%;height:300px;object-fit:contain;border:1px solid var(--line);border-radius:15px;background:#f8fafc}.cue{background:#ecfdf5;border-left:4px solid var(--teal);padding:11px 12px;border-radius:10px;margin-top:10px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.timer{font-size:34px;font-weight:850;text-align:center}.sequence-item{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;margin-top:8px}.sequence-item.current{border:2px solid var(--teal);background:#f0fdfa}.sequence-item.done{background:var(--good);opacity:.76}.num{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#e8eef3;font-weight:800}.sequence-item small{display:block;color:var(--muted)}label{display:block;font-weight:700;margin:10px 0 5px}input,textarea,select{width:100%;padding:11px;border:1px solid var(--line);border-radius:11px;font:inherit;background:#fff}textarea{min-height:78px}.log{border:1px solid var(--line);border-radius:13px;padding:12px;margin:9px 0;background:#fff}.log h3{margin:0 0 3px}.log p{margin:4px 0;color:var(--muted);font-size:14px}.empty{text-align:center;color:var(--muted);padding:28px}.bar{height:10px;background:#e7edf1;border-radius:999px;overflow:hidden}.bar i{height:100%;display:block;background:var(--teal)}.chart{height:180px;width:100%}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{aspect-ratio:1;border:1px solid var(--line);border-radius:9px;display:grid;place-items:center;font-size:12px;background:#fff}.day.done{background:var(--teal);color:#fff;border-color:var(--teal)}.section-title{display:flex;justify-content:space-between;align-items:center;margin:5px 0 8px}.section-title h2{font-size:18px;margin:0}.note{font-size:13px;color:var(--muted);line-height:1.45}.health-entry{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;border-bottom:1px solid var(--line);padding:9px 0}.health-entry:last-child{border-bottom:0}.badge{font-size:12px;background:#e6fffb;color:var(--teal2);padding:5px 8px;border-radius:999px;font-weight:750}.install{background:var(--warn)}
-@media(max-width:580px){.grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:1fr}.exercise-img{height:250px}.hero h2{font-size:24px}.tabs button b{font-size:18px}}
-</style></head><body>
-<header><div class="top"><div><h1>GregFit</h1><small>Strength • Health • Progress</small></div><span id="headerStreak" class="status-pill">🔥 0-day streak</span></div></header>
+:root{
+ --navy:#101a2d;--navy2:#17243a;--ink:#132137;--muted:#667085;--line:#dce3ea;
+ --bg:#f4f7f9;--card:#fff;--green:#167f73;--green2:#0e5d56;--mint:#e6f5f1;
+ --orange:#ff9a62;--gold:#ffbf5b;--red:#d95656;--shadow:0 10px 30px rgba(16,26,45,.08);
+}
+*{box-sizing:border-box}
+html{background:var(--navy)}
+body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:920px;margin:auto;min-height:100vh;padding-bottom:90px}
+.hero{background:linear-gradient(145deg,var(--navy),#1b2d48);color:white;padding:calc(18px + env(safe-area-inset-top)) 20px 24px;border-radius:0 0 30px 30px}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand h1{font-size:25px;margin:0}
+.brand small{color:#b9c6d8}
+.avatar{width:46px;height:46px;border-radius:15px;background:var(--gold);display:grid;place-items:center;color:var(--navy);font-weight:900}
+.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:12px;margin-top:20px}
+.hero-card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:16px}
+.hero-card strong{font-size:28px}
+.btn{border:0;border-radius:15px;padding:13px 16px;font-weight:800}
+.btn-primary{background:var(--green);color:white}
+.btn-secondary{background:white;color:var(--ink);border:1px solid var(--line)}
+.btn-danger{background:#fff0f0;color:var(--red);border:1px solid #f4cccc}
+.btn-wide{width:100%}
+main{padding:18px}
+.screen{display:none}
+.screen.active{display:block}
+.section-title{display:flex;align-items:end;justify-content:space-between;margin:8px 0 12px}
+.section-title h2,.section-title h3{margin:0}
+.section-title p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.grid{display:grid;gap:12px}
+.stats{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow)}
+.stat{text-align:left}
+.stat b{display:block;font-size:25px}
+.stat span{color:var(--muted);font-size:13px}
+.today-card{overflow:hidden;padding:0}
+.today-art{height:220px;background:var(--mint);display:grid;place-items:center}
+.today-art img{height:100%;max-width:100%;object-fit:contain}
+.today-content{padding:18px}
+.progress-row{display:flex;align-items:center;gap:12px}
+.progress-track{height:10px;background:#e5eaef;border-radius:999px;overflow:hidden;flex:1}
+.progress-fill{height:100%;background:var(--green);border-radius:999px}
+.metric-list{display:grid;gap:10px}
+.metric{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.metric:last-child{border-bottom:0}
+.metric small{color:var(--muted)}
+.bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(920px,100%);background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom));z-index:20}
+.nav-btn{border:0;background:transparent;padding:8px 4px;color:var(--muted);font-size:11px;font-weight:700}
+.nav-btn .ico{display:block;font-size:20px;margin-bottom:3px}
+.nav-btn.active{color:var(--green)}
+.player-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.exercise-art{margin-top:12px;background:var(--mint);border-radius:22px;overflow:hidden;height:340px;display:grid;place-items:center}
+.exercise-art img{width:100%;height:100%;object-fit:contain}
+.pill{display:inline-block;background:var(--mint);color:var(--green2);font-size:12px;font-weight:900;padding:6px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em}
+.cue{background:#eefaf7;border-left:5px solid var(--green);padding:13px;border-radius:13px;margin:12px 0}
+.action-row{display:grid;grid-template-columns:1fr 1.3fr;gap:10px}
+.timer{font-size:48px;text-align:center;font-weight:900;font-variant-numeric:tabular-nums}
+.sequence{display:grid;gap:8px}
+.sequence-item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:11px;border-radius:15px;background:white}
+.sequence-item.active{border-color:var(--green);background:var(--mint)}
+.sequence-num{width:34px;height:34px;border-radius:12px;background:#edf1f5;display:grid;place-items:center;font-weight:900}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:13px;font-weight:800;margin-bottom:5px}
+input,select,textarea{width:100%;border:1px solid #ccd5df;border-radius:13px;padding:12px;background:white;color:var(--ink)}
+textarea{min-height:88px;resize:vertical}
+.chart{height:220px;position:relative}
+.chart svg{width:100%;height:100%}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-head{font-size:11px;color:var(--muted);text-align:center}
+.day{aspect-ratio:1;border-radius:12px;background:#eef2f5;display:grid;place-items:center;font-size:13px}
+.day.done{background:var(--green);color:white;font-weight:900}
+.log-list{display:grid;gap:10px}
+.log-item{border:1px solid var(--line);border-radius:16px;padding:13px;background:white}
+.log-item b{display:block}
+.log-item small{color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:24px}
+.toast{position:fixed;left:50%;bottom:95px;transform:translateX(-50%) translateY(20px);background:var(--navy);color:white;padding:12px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:30}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.install{display:none;margin-top:12px}
+@media(max-width:680px){
+ .hero-grid{grid-template-columns:1fr}
+ .stats{grid-template-columns:1fr 1fr}
+ .form-grid{grid-template-columns:1fr}
+ .exercise-art{height:290px}
+ main{padding:14px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero">
+  <div class="brand"><div><h1>GregFit</h1><small>Your personal strength & health tracker</small></div><div class="avatar">GF</div></div>
+  <div class="hero-grid">
+    <div class="hero-card">
+      <small id="greeting">Good morning, Greg</small>
+      <h2 style="margin:6px 0">Ready to get stronger?</h2>
+      <button class="btn btn-primary" id="heroStart">Start today’s workout</button>
+      <button class="btn btn-secondary install" id="installBtn">Install GregFit</button>
+    </div>
+    <div class="hero-card"><small>Current streak</small><div><strong id="heroStreak">0</strong> days 🔥</div><small id="heroLast">Start your first workout</small></div>
+  </div>
+</header>
+
 <main>
-<section id="today" class="panel active"><div class="card hero"><div id="greeting">Good morning, Greg</div><h2 id="todayHeadline">Ready for today’s workout?</h2><p id="todaySummary">A focused full-body kettlebell session with core work.</p><button id="startWorkout" class="primary">Start workout</button></div><div class="grid4"><div class="metric"><b id="dashTotal">0</b><span>Total workouts</span></div><div class="metric"><b id="dashStreak">0</b><span>Current streak</span></div><div class="metric"><b id="dashMinutes">0</b><span>Total minutes</span></div><div class="metric"><b id="dashWeight">—</b><span>Latest weight</span></div></div><div class="card"><div class="section-title"><h2>Today’s plan</h2><span class="badge">~25–35 min</span></div><div id="todaySequence"></div></div><div class="card"><div class="section-title"><h2>Goals</h2><span id="goalPercent" class="badge">0%</span></div><div id="goalText" class="note"></div><div class="bar" style="margin-top:9px"><i id="goalBar" style="width:0%"></i></div></div></section>
-<section id="workout" class="panel"><div class="card grid3"><div class="metric"><b id="roundStat">1/3</b><span>Round</span></div><div class="metric"><b id="stepStat">1/9</b><span>Exercise</span></div><div class="metric"><b id="elapsedStat">0:00</b><span>Elapsed</span></div></div><div class="card exercise"><div id="category" class="eyebrow"></div><h2 id="name"></h2><div id="meta" class="meta"></div><img id="visual" class="exercise-img" alt="Exercise illustration"><div id="cue" class="cue"></div><div class="actions"><button id="prev" class="secondary">Previous</button><button id="next" class="primary">Complete & Next</button></div></div><div class="card"><div id="restDisplay" class="timer">1:00</div><div class="actions"><button id="rest30" class="secondary">30 sec</button><button id="rest60" class="secondary">60 sec</button></div><button id="restToggle" class="primary wide" style="margin-top:10px">Start Rest Timer</button></div><div class="card"><b>Current round</b><div id="sequence"></div></div></section>
-<section id="progress" class="panel"><div class="grid4"><div class="metric"><b id="progressWorkouts">0</b><span>Workouts</span></div><div class="metric"><b id="longestStreak">0</b><span>Best streak</span></div><div class="metric"><b id="progressHours">0</b><span>Hours trained</span></div><div class="metric"><b id="progressChange">—</b><span>Weight change</span></div></div><div class="card"><div class="section-title"><h2>Body-weight trend</h2><span class="badge">Recent entries</span></div><svg id="weightChart" class="chart" viewBox="0 0 700 180" role="img" aria-label="Body weight trend"></svg></div><div class="card"><div class="section-title"><h2>Workout calendar</h2><span id="calendarMonth" class="badge"></span></div><div id="calendar" class="calendar"></div></div><div class="card"><div class="section-title"><h2>Achievements</h2></div><div id="achievements" class="grid2"></div></div></section>
-<section id="history" class="panel"><div class="card"><div class="grid2"><button id="exportCsv" class="secondary">Export all data</button><button id="clearLogs" class="danger">Clear workout history</button></div></div><div id="logList"></div></section>
-<section id="health" class="panel"><div class="card"><div class="section-title"><h2>Add health entry</h2><span class="badge">Stored on device</span></div><div class="grid2"><div><label for="bodyWeight">Body weight (lb)</label><input id="bodyWeight" type="number" step="0.1" placeholder="267.0"></div><div><label for="waist">Waist (in)</label><input id="waist" type="number" step="0.1"></div><div><label for="systolic">Blood pressure</label><input id="systolic" type="number" placeholder="120"></div><div><label for="diastolic">Diastolic</label><input id="diastolic" type="number" placeholder="80"></div><div><label for="protein">Protein (g)</label><input id="protein" type="number"></div><div><label for="water">Water (oz)</label><input id="water" type="number"></div></div><label for="healthNotes">Notes</label><textarea id="healthNotes" placeholder="Energy, soreness, sleep, medication notes..."></textarea><button id="saveHealth" class="primary wide" style="margin-top:11px">Save health entry</button></div><div class="card"><div class="section-title"><h2>Recent health entries</h2></div><div id="healthList"></div></div></section>
-<section id="setup" class="panel"><div class="card"><div class="section-title"><h2>Workout setup</h2></div><label for="rounds">Rounds</label><select id="rounds"><option>2</option><option>3</option><option>4</option></select><div class="grid2"><div><label for="lightWeight">Press weight</label><select id="lightWeight"><option>10 lb</option><option>15 lb</option></select></div><div><label for="heavyWeight">Main weight</label><select id="heavyWeight"><option>10 lb</option><option>15 lb</option><option>20 lb</option></select></div></div><label for="notes">Workout notes</label><textarea id="notes" placeholder="How did today feel?"></textarea><button id="saveSettings" class="primary wide" style="margin-top:11px">Save workout setup</button></div><div class="card"><div class="section-title"><h2>Goals</h2></div><div class="grid2"><div><label for="startWeight">Starting weight</label><input id="startWeight" type="number" step="0.1"></div><div><label for="goalWeight">Goal weight</label><input id="goalWeight" type="number" step="0.1"></div><div><label for="weeklyGoal">Workouts per week</label><select id="weeklyGoal"><option>2</option><option>3</option><option>4</option><option>5</option></select></div><div><label for="proteinGoal">Protein goal (g)</label><input id="proteinGoal" type="number"></div></div><button id="saveGoals" class="primary wide" style="margin-top:11px">Save goals</button></div><div class="card install"><b>Add GregFit to your phone</b><p class="note"><b>iPhone:</b> Open this site in Safari, tap Share, then Add to Home Screen.</p><p class="note"><b>Android:</b> Open in Chrome, tap the menu, then Install app or Add to Home screen.</p><p class="note">Your records stay on this device. Export your data periodically as a backup.</p></div></section>
-</main><nav class="tabs"><button data-tab="today" class="active"><b>⌂</b>Today</button><button data-tab="progress"><b>↗</b>Progress</button><button data-tab="history"><b>☷</b>History</button><button data-tab="health"><b>♥</b>Health</button><button data-tab="setup"><b>⚙</b>Setup</button></nav>
+<section class="screen active" id="home">
+  <div class="section-title"><div><h2>Dashboard</h2><p>Your latest progress at a glance</p></div></div>
+  <div class="grid stats">
+    <div class="card stat"><b id="statWorkouts">0</b><span>Total workouts</span></div>
+    <div class="card stat"><b id="statMinutes">0</b><span>Minutes trained</span></div>
+    <div class="card stat"><b id="statWeight">—</b><span>Latest weight</span></div>
+    <div class="card stat"><b id="statProtein">0g</b><span>Protein today</span></div>
+  </div>
+  <div class="section-title"><div><h3>Today’s workout</h3><p>Full body kettlebell + core</p></div></div>
+  <div class="card today-card">
+    <div class="today-art"><img src="assets/illustrations/swing.svg" alt="Kettlebell swing illustration"></div>
+    <div class="today-content">
+      <h2 style="margin:0 0 4px">Greg’s Full-Body Circuit</h2>
+      <p style="color:var(--muted);margin:0 0 14px">9 exercises · about 25–35 minutes</p>
+      <div class="progress-row"><div class="progress-track"><div class="progress-fill" id="homeProgress" style="width:0%"></div></div><strong id="homeProgressText">0%</strong></div>
+      <button class="btn btn-primary btn-wide" style="margin-top:14px" id="homeStart">Start workout</button>
+    </div>
+  </div>
+  <div class="section-title"><div><h3>Goals</h3><p>Daily and long-term targets</p></div></div>
+  <div class="grid" style="grid-template-columns:1fr 1fr">
+    <div class="card">
+      <b>Protein</b><div class="progress-row" style="margin-top:12px"><div class="progress-track"><div class="progress-fill" id="proteinBar"></div></div><span id="proteinGoalText">0 / 180g</span></div>
+    </div>
+    <div class="card">
+      <b>Weight goal</b><div class="progress-row" style="margin-top:12px"><div class="progress-track"><div class="progress-fill" id="weightBar"></div></div><span id="weightGoalText">Not set</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="workout">
+  <div class="section-title"><div><h2>Workout player</h2><p>Follow one movement at a time</p></div><button class="btn btn-secondary" id="resetWorkout">Reset</button></div>
+  <div class="card">
+    <div class="player-head">
+      <div><span class="pill" id="exCategory">Warm-up</span><h2 id="exName" style="margin:8px 0 2px">March in Place</h2><div id="exTarget" style="color:var(--muted)">60 seconds · No weight</div></div>
+      <div style="text-align:right"><b id="roundReadout">Round 1/3</b><br><small id="exerciseReadout">Exercise 1/9</small></div>
+    </div>
+    <div class="exercise-art"><img id="exImage" alt=""></div>
+    <div class="cue" id="exCue"></div>
+    <div class="action-row"><button class="btn btn-secondary" id="prevEx">Previous</button><button class="btn btn-primary" id="nextEx">Complete & Next</button></div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="timer" id="restTimer">1:00</div>
+    <div class="action-row"><button class="btn btn-secondary" id="timer30">30 sec</button><button class="btn btn-secondary" id="timer60">60 sec</button></div>
+    <button class="btn btn-primary btn-wide" style="margin-top:10px" id="toggleTimer">Start rest timer</button>
+  </div>
+  <div class="section-title"><div><h3>Sequence</h3></div></div>
+  <div class="sequence" id="sequence"></div>
+</section>
+
+<section class="screen" id="progress">
+  <div class="section-title"><div><h2>Progress</h2><p>Streaks, workouts, calendar and weight trend</p></div></div>
+  <div class="grid stats">
+    <div class="card stat"><b id="progressCurrent">0</b><span>Current streak</span></div>
+    <div class="card stat"><b id="progressLongest">0</b><span>Longest streak</span></div>
+    <div class="card stat"><b id="progressHours">0</b><span>Hours trained</span></div>
+    <div class="card stat"><b id="progressMonth">0</b><span>This month</span></div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="section-title"><div><h3>Workout calendar</h3><p id="calendarTitle"></p></div></div><div class="calendar" id="calendar"></div></div>
+  <div class="card" style="margin-top:12px"><div class="section-title"><div><h3>Weight trend</h3><p>Most recent entries</p></div></div><div class="chart" id="weightChart"></div></div>
+  <div class="section-title"><div><h3>Workout history</h3></div><button class="btn btn-secondary" id="exportCsv">Export CSV</button></div>
+  <div class="log-list" id="workoutLog"></div>
+</section>
+
+<section class="screen" id="health">
+  <div class="section-title"><div><h2>Health</h2><p>Track body measurements and daily nutrition</p></div></div>
+  <div class="card">
+    <div class="form-grid">
+      <div><label for="healthDate">Date</label><input type="date" id="healthDate"></div>
+      <div><label for="healthWeight">Weight (lb)</label><input type="number" step="0.1" id="healthWeight" placeholder="267.0"></div>
+      <div><label for="healthWaist">Waist (inches)</label><input type="number" step="0.1" id="healthWaist"></div>
+      <div><label for="healthProtein">Protein (grams)</label><input type="number" id="healthProtein"></div>
+      <div><label for="healthWater">Water (oz)</label><input type="number" id="healthWater"></div>
+      <div><label for="healthBP">Blood pressure</label><input type="text" id="healthBP" placeholder="120/80"></div>
+    </div>
+    <label for="healthNotes" style="margin-top:12px">Notes</label><textarea id="healthNotes" placeholder="Energy, recovery, sleep, soreness..."></textarea>
+    <button class="btn btn-primary btn-wide" id="saveHealth">Save health entry</button>
+  </div>
+  <div class="section-title"><div><h3>Health history</h3></div></div>
+  <div class="log-list" id="healthLog"></div>
+</section>
+
+<section class="screen" id="settings">
+  <div class="section-title"><div><h2>Settings</h2><p>Personalize goals and workout structure</p></div></div>
+  <div class="card">
+    <div class="form-grid">
+      <div><label for="setRounds">Workout rounds</label><select id="setRounds"><option>2</option><option selected>3</option><option>4</option></select></div>
+      <div><label for="setProtein">Daily protein goal (g)</label><input type="number" id="setProtein" value="180"></div>
+      <div><label for="setStartWeight">Starting weight (lb)</label><input type="number" step="0.1" id="setStartWeight"></div>
+      <div><label for="setGoalWeight">Goal weight (lb)</label><input type="number" step="0.1" id="setGoalWeight"></div>
+      <div><label for="setWeekly">Weekly workout goal</label><input type="number" min="1" max="7" id="setWeekly" value="3"></div>
+    </div>
+    <button class="btn btn-primary btn-wide" style="margin-top:12px" id="saveSettings">Save settings</button>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <h3 style="margin-top:0">Data</h3>
+    <p style="color:var(--muted)">Your records are stored locally on this device. Export regularly for backup.</p>
+    <div class="action-row"><button class="btn btn-secondary" id="backupJson">Backup JSON</button><button class="btn btn-danger" id="clearData">Clear all data</button></div>
+  </div>
+</section>
+</main>
+</div>
+
+<nav class="bottom-nav">
+<button class="nav-btn active" data-screen="home"><span class="ico">⌂</span>Home</button>
+<button class="nav-btn" data-screen="workout"><span class="ico">🏋️</span>Workout</button>
+<button class="nav-btn" data-screen="progress"><span class="ico">📈</span>Progress</button>
+<button class="nav-btn" data-screen="health"><span class="ico">♥</span>Health</button>
+<button class="nav-btn" data-screen="settings"><span class="ico">⚙</span>Settings</button>
+</nav>
+<div class="toast" id="toast" aria-live="polite"></div>
+
 <script>
 const exercises=[
-{name:'March in Place',cat:'Warm-up',reps:'60 seconds',weight:'No weight',cue:'Stand tall, brace gently, and march at a comfortable pace.',img:'assets/march.svg'},
-{name:'Kettlebell Swings',cat:'Strength',reps:'6 reps',weight:'heavy',cue:'Hinge at the hips and drive the bell forward with your hips—not your arms.',img:'assets/swing.svg'},
-{name:'Overhead Press',cat:'Strength',reps:'3 each arm',weight:'light',cue:'Brace your core and press straight overhead without leaning back.',img:'assets/press.svg'},
-{name:'Goblet Squat',cat:'Strength',reps:'6 reps',weight:'heavy',cue:'Hold the bell at your chest and sit down between your hips.',img:'assets/squat.svg'},
-{name:'Bent-Over Row',cat:'Strength',reps:'8 each arm',weight:'light/heavy',cue:'Keep your back flat and pull your elbow toward your hip.',img:'assets/row.svg'},
-{name:'Romanian Deadlift',cat:'Strength',reps:'8 reps',weight:'heavy',cue:'Push your hips back and keep the kettlebell close to your legs.',img:'assets/rdl.svg'},
-{name:'Dead Bug',cat:'Core',reps:'8 each side',weight:'No weight',cue:'Keep your lower back gently pressed into the floor and move slowly.',img:'assets/deadbug.svg'},
-{name:'Plank',cat:'Core',reps:'20–30 seconds',weight:'No weight',cue:'Keep a straight line from shoulders to heels and squeeze your glutes.',img:'assets/plank.svg'},
-{name:'Suitcase Carry',cat:'Core',reps:'30 seconds each side',weight:'heavy',cue:'Walk tall and resist leaning toward the kettlebell.',img:'assets/carry.svg'}];
-const $=id=>document.getElementById(id),read=(k,d)=>JSON.parse(localStorage.getItem(k)||'null')||d,write=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
-let settings=read('gfSettings',{rounds:3,light:'10 lb',heavy:'15 lb'}),goals=read('gfGoals',{startWeight:307,goalWeight:237,weeklyGoal:3,proteinGoal:150});
-let state={round:1,index:0,done:new Set(),started:null,elapsedTimer:null};let restSeconds=60,restTimer=null;
-function logs(){return read('gfWorkouts',[])}function health(){return read('gfHealth',[])}function wt(w){return w==='light'?settings.light:w==='heavy'?settings.heavy:w==='light/heavy'?settings.light+' or '+settings.heavy:w}
-function dateKey(d){const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`}
-function streakInfo(){const days=[...new Set(logs().map(x=>dateKey(x.date)))].sort().reverse();let cur=0;let d=new Date();for(let i=0;i<370;i++){const k=dateKey(d);if(days.includes(k))cur++;else if(i===0){d.setDate(d.getDate()-1);continue}else break;d.setDate(d.getDate()-1)}let best=0,run=0,prev=null;[...days].sort().forEach(k=>{const dd=new Date(k+'T12:00:00');if(prev&&Math.round((dd-prev)/86400000)===1)run++;else run=1;best=Math.max(best,run);prev=dd});return{cur,best}}
-function greeting(){const h=new Date().getHours();return h<12?'Good morning, Greg':h<18?'Good afternoon, Greg':'Good evening, Greg'}
-function renderDashboard(){const L=logs(),H=health(),s=streakInfo(),mins=L.reduce((a,b)=>a+(b.duration||0),0);$('greeting').textContent=greeting();$('dashTotal').textContent=L.length;$('dashStreak').textContent=s.cur;$('headerStreak').textContent=`🔥 ${s.cur}-day streak`;$('dashMinutes').textContent=mins;$('dashWeight').textContent=H.find(x=>x.weight)?.weight?H.find(x=>x.weight).weight+' lb':'—';$('todaySequence').innerHTML=exercises.map((e,i)=>`<div class="sequence-item"><div class="num">${i+1}</div><div><b>${e.name}</b><small>${e.reps} • ${wt(e.weight)}</small></div></div>`).join('');let latest=H.find(x=>x.weight)?.weight||goals.startWeight;let pct=Math.max(0,Math.min(100,Math.round((goals.startWeight-latest)/(goals.startWeight-goals.goalWeight)*100)||0));$('goalPercent').textContent=pct+'%';$('goalBar').style.width=pct+'%';$('goalText').textContent=`${latest} lb current • ${goals.goalWeight} lb goal • ${goals.weeklyGoal} workouts/week`}
-function showTab(id){document.querySelectorAll('.panel,.tabs button').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');document.querySelector(`.tabs button[data-tab="${id}"]`)?.classList.add('active');if(id==='progress')renderProgress();if(id==='history')renderLogs();if(id==='health')renderHealth();window.scrollTo({top:0,behavior:'smooth'})}
-function renderWorkout(){const e=exercises[state.index];$('roundStat').textContent=`${state.round}/${settings.rounds}`;$('stepStat').textContent=`${state.index+1}/${exercises.length}`;$('category').textContent=e.cat;$('name').textContent=e.name;$('meta').textContent=`${e.reps} • ${wt(e.weight)}`;$('visual').src=e.img;$('visual').alt=`Illustration of ${e.name}`;$('cue').textContent=e.cue;$('prev').disabled=state.round===1&&state.index===0;$('next').textContent=state.round===settings.rounds&&state.index===exercises.length-1?'Finish Workout':'Complete & Next';$('sequence').innerHTML=exercises.map((x,i)=>{const k=`${state.round}-${i}`;return `<div class="sequence-item ${i===state.index?'current':''} ${state.done.has(k)?'done':''}"><div class="num">${state.done.has(k)?'✓':i+1}</div><div><b>${x.name}</b><small>${x.reps} • ${wt(x.weight)}</small></div></div>`}).join('')}
-function startElapsed(){if(state.started)return;state.started=Date.now();state.elapsedTimer=setInterval(()=>{const s=Math.floor((Date.now()-state.started)/1000);$('elapsedStat').textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`},1000)}
-function next(){startElapsed();state.done.add(`${state.round}-${state.index}`);if(state.index<exercises.length-1)state.index++;else if(state.round<settings.rounds){state.round++;state.index=0;setRest(60)}else return finishWorkout();renderWorkout()}
-function prev(){if(state.index>0)state.index--;else if(state.round>1){state.round--;state.index=exercises.length-1}renderWorkout()}
-function finishWorkout(){clearInterval(state.elapsedTimer);const duration=state.started?Math.max(1,Math.round((Date.now()-state.started)/60000)):0;const L=logs();L.unshift({id:Date.now(),date:new Date().toISOString(),rounds:settings.rounds,duration,light:settings.light,heavy:settings.heavy,notes:$('notes').value.trim()});write('gfWorkouts',L);alert('Workout saved! Great job, Greg.');state={round:1,index:0,done:new Set(),started:null,elapsedTimer:null};$('elapsedStat').textContent='0:00';$('notes').value='';renderWorkout();renderDashboard();showTab('today')}
-function setRest(s){clearInterval(restTimer);restTimer=null;restSeconds=s;$('restToggle').textContent='Start Rest Timer';updateRest()}function updateRest(){$('restDisplay').textContent=`${Math.floor(restSeconds/60)}:${String(restSeconds%60).padStart(2,'0')}`}function toggleRest(){if(restTimer){clearInterval(restTimer);restTimer=null;$('restToggle').textContent='Resume Rest Timer';return}if(restSeconds<=0)restSeconds=60;$('restToggle').textContent='Pause';restTimer=setInterval(()=>{restSeconds--;updateRest();if(restSeconds<=0){clearInterval(restTimer);restTimer=null;$('restToggle').textContent='Rest Complete'}},1000)}
-function renderLogs(){const L=logs();$('logList').innerHTML=L.length?L.map(l=>`<div class="log"><h3>${new Date(l.date).toLocaleDateString()} at ${new Date(l.date).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}</h3><p>${l.rounds} rounds • ${l.duration} min • ${l.light}/${l.heavy}</p>${l.notes?`<p>${esc(l.notes)}</p>`:''}</div>`).join(''):'<div class="card empty">No completed workouts yet.</div>'}
-function renderHealth(){const H=health();$('healthList').innerHTML=H.length?H.slice(0,20).map(h=>`<div class="health-entry"><div><b>${new Date(h.date).toLocaleDateString()}</b><div class="note">${[h.weight&&h.weight+' lb',h.waist&&h.waist+' in waist',h.sys&&h.sys+'/'+h.dia+' BP',h.protein&&h.protein+'g protein',h.water&&h.water+' oz water'].filter(Boolean).join(' • ')}</div>${h.notes?`<div class="note">${esc(h.notes)}</div>`:''}</div><span class="badge">${new Date(h.date).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}</span></div>`).join(''):'<div class="empty">No health entries yet.</div>'}
-function saveHealth(){const vals={id:Date.now(),date:new Date().toISOString(),weight:+$('bodyWeight').value||null,waist:+$('waist').value||null,sys:+$('systolic').value||null,dia:+$('diastolic').value||null,protein:+$('protein').value||null,water:+$('water').value||null,notes:$('healthNotes').value.trim()};if(!Object.values(vals).some((v,i)=>i>1&&v))return alert('Enter at least one health value.');const H=health();H.unshift(vals);write('gfHealth',H);['bodyWeight','waist','systolic','diastolic','protein','water','healthNotes'].forEach(id=>$(id).value='');renderHealth();renderDashboard();alert('Health entry saved.')}
-function renderProgress(){const L=logs(),H=health().filter(x=>x.weight).slice().reverse(),s=streakInfo(),mins=L.reduce((a,b)=>a+(b.duration||0),0);$('progressWorkouts').textContent=L.length;$('longestStreak').textContent=s.best;$('progressHours').textContent=(mins/60).toFixed(1);$('progressChange').textContent=H.length>1?(H[H.length-1].weight-H[0].weight).toFixed(1)+' lb':'—';drawChart(H.slice(-12));renderCalendar(L);const achievements=[['First workout',L.length>=1],['10 workouts',L.length>=10],['25 workouts',L.length>=25],['3-day streak',s.best>=3],['7-day streak',s.best>=7],['10 hours trained',mins>=600]];$('achievements').innerHTML=achievements.map(([n,on])=>`<div class="metric" style="opacity:${on?1:.45}"><b>${on?'🏆':'○'}</b><span>${n}</span></div>`).join('')}
-function drawChart(H){const svg=$('weightChart');if(H.length<2){svg.innerHTML='<text x="350" y="95" text-anchor="middle" fill="#687588">Add at least two body-weight entries to see a trend.</text>';return}const vals=H.map(x=>x.weight),min=Math.min(...vals)-2,max=Math.max(...vals)+2,pts=vals.map((v,i)=>`${40+i*(620/(vals.length-1))},${150-(v-min)/(max-min)*115}`).join(' ');svg.innerHTML=`<line x1="40" y1="150" x2="660" y2="150" stroke="#dbe2e8"/><polyline points="${pts}" fill="none" stroke="#0f766e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>${vals.map((v,i)=>`<circle cx="${40+i*(620/(vals.length-1))}" cy="${150-(v-min)/(max-min)*115}" r="6" fill="#0f766e"/><text x="${40+i*(620/(vals.length-1))}" y="${132-(v-min)/(max-min)*115}" text-anchor="middle" font-size="12" fill="#687588">${v}</text>`).join('')}`}
-function renderCalendar(L){const now=new Date(),y=now.getFullYear(),m=now.getMonth(),first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),done=new Set(L.map(x=>dateKey(x.date)));$('calendarMonth').textContent=now.toLocaleDateString(undefined,{month:'long',year:'numeric'});let html=['S','M','T','W','T','F','S'].map(x=>`<div class="day" style="font-weight:800;border:0;background:transparent">${x}</div>`).join('');for(let i=0;i<first.getDay();i++)html+='<div></div>';for(let d=1;d<=days;d++){const k=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;html+=`<div class="day ${done.has(k)?'done':''}">${d}</div>`}$('calendar').innerHTML=html}
-function esc(s){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function exportCsv(){const rows=[['TYPE','DATE','ROUNDS','DURATION_MIN','PRESS_WEIGHT','MAIN_WEIGHT','BODY_WEIGHT','WAIST','SYSTOLIC','DIASTOLIC','PROTEIN','WATER','NOTES'],...logs().map(x=>['Workout',x.date,x.rounds,x.duration,x.light,x.heavy,'','','','','','',x.notes]),...health().map(x=>['Health',x.date,'','','','',x.weight,x.waist,x.sys,x.dia,x.protein,x.water,x.notes])];const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='gregfit-data.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));$('startWorkout').addEventListener('click',()=>{showTab('workout');renderWorkout()});$('next').addEventListener('click',next);$('prev').addEventListener('click',prev);$('rest30').addEventListener('click',()=>setRest(30));$('rest60').addEventListener('click',()=>setRest(60));$('restToggle').addEventListener('click',toggleRest);$('saveHealth').addEventListener('click',saveHealth);$('exportCsv').addEventListener('click',exportCsv);$('clearLogs').addEventListener('click',()=>{if(confirm('Delete all workout history?')){localStorage.removeItem('gfWorkouts');renderLogs();renderDashboard()}});$('saveSettings').addEventListener('click',()=>{settings={rounds:+$('rounds').value,light:$('lightWeight').value,heavy:$('heavyWeight').value};write('gfSettings',settings);renderWorkout();renderDashboard();alert('Workout setup saved.')});$('saveGoals').addEventListener('click',()=>{goals={startWeight:+$('startWeight').value||307,goalWeight:+$('goalWeight').value||237,weeklyGoal:+$('weeklyGoal').value||3,proteinGoal:+$('proteinGoal').value||150};write('gfGoals',goals);renderDashboard();alert('Goals saved.')});
-$('rounds').value=settings.rounds;$('lightWeight').value=settings.light;$('heavyWeight').value=settings.heavy;$('startWeight').value=goals.startWeight;$('goalWeight').value=goals.goalWeight;$('weeklyGoal').value=goals.weeklyGoal;$('proteinGoal').value=goals.proteinGoal;renderDashboard();renderWorkout();renderLogs();renderHealth();updateRest();if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js');
-</script></body></html>
+ {name:"March in Place",category:"Warm-up",target:"60 seconds",weight:"No weight",img:"march.svg",cue:"Stand tall, brace gently and march at a comfortable pace."},
+ {name:"Kettlebell Swings",category:"Strength",target:"6 reps",weight:"15 lb",img:"swing.svg",cue:"Hinge at the hips and drive them forward. Your hips create the power."},
+ {name:"Overhead Press",category:"Strength",target:"3 reps per arm",weight:"10 lb",img:"press.svg",cue:"Keep your ribs down and press straight overhead without leaning back."},
+ {name:"Goblet Squat",category:"Strength",target:"6 reps",weight:"15 lb",img:"squat.svg",cue:"Hold the bell at your chest, sit between your hips and keep your chest tall."},
+ {name:"Bent-Over Row",category:"Strength",target:"8 reps per arm",weight:"10–15 lb",img:"row.svg",cue:"Keep your back flat and pull your elbow toward your hip."},
+ {name:"Romanian Deadlift",category:"Strength",target:"8 reps",weight:"15 lb",img:"rdl.svg",cue:"Push your hips back and keep the kettlebell close to your legs."},
+ {name:"Dead Bug",category:"Core",target:"8 reps per side",weight:"No weight",img:"deadbug.svg",cue:"Keep your lower back gently pressed down and move slowly."},
+ {name:"Plank",category:"Core",target:"20–30 seconds",weight:"No weight",img:"plank.svg",cue:"Keep a straight line from shoulders to heels and squeeze your glutes."},
+ {name:"Suitcase Carry",category:"Core",target:"30 seconds per side",weight:"15 lb",img:"carry.svg",cue:"Walk tall without leaning toward the kettlebell."}
+];
+const KEY="gregfit_v3_data";
+const defaults={settings:{rounds:3,proteinGoal:180,startWeight:"",goalWeight:"",weeklyGoal:3},workouts:[],health:[],session:{round:1,index:0,completed:[],startedAt:null}};
+let data=JSON.parse(localStorage.getItem(KEY)||"null")||structuredClone(defaults);
+let restSeconds=60,restInt=null,deferredPrompt=null;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)}
+function isoDay(d=new Date()){return d.toISOString().slice(0,10)}
+function showScreen(id){
+ $$(".screen").forEach(x=>x.classList.toggle("active",x.id===id));
+ $$(".nav-btn").forEach(x=>x.classList.toggle("active",x.dataset.screen===id));
+ if(id==="progress") renderProgress();
+ if(id==="health") renderHealth();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+$$(".nav-btn").forEach(b=>b.addEventListener("click",()=>showScreen(b.dataset.screen)));
+function startWorkout(){if(!data.session.startedAt)data.session.startedAt=Date.now();save();showScreen("workout");renderWorkout()}
+$("#heroStart").onclick=startWorkout;$("#homeStart").onclick=startWorkout;
+function workoutKey(){return `${data.session.round}-${data.session.index}`}
+function renderWorkout(){
+ const s=data.session,e=exercises[s.index],rounds=+data.settings.rounds;
+ $("#exCategory").textContent=e.category;$("#exName").textContent=e.name;$("#exTarget").textContent=`${e.target} · ${e.weight}`;
+ $("#exImage").src=`assets/illustrations/${e.img}`;$("#exImage").alt=`${e.name} illustration`;$("#exCue").textContent=e.cue;
+ $("#roundReadout").textContent=`Round ${s.round}/${rounds}`;$("#exerciseReadout").textContent=`Exercise ${s.index+1}/${exercises.length}`;
+ $("#prevEx").disabled=s.round===1&&s.index===0;
+ $("#nextEx").textContent=(s.round===rounds&&s.index===exercises.length-1)?"Finish workout":"Complete & Next";
+ $("#sequence").innerHTML=exercises.map((x,i)=>`<button class="sequence-item ${i===s.index?"active":""}" data-i="${i}"><span class="sequence-num">${s.completed.includes(`${s.round}-${i}`)?"✓":i+1}</span><span><b>${x.name}</b><br><small>${x.target} · ${x.weight}</small></span></button>`).join("");
+ $$("#sequence .sequence-item").forEach(b=>b.onclick=()=>{data.session.index=+b.dataset.i;save();renderWorkout()});
+ updateHome();
+}
+$("#nextEx").onclick=()=>{
+ const s=data.session,rounds=+data.settings.rounds,k=workoutKey();if(!s.completed.includes(k))s.completed.push(k);
+ if(s.index<exercises.length-1)s.index++;
+ else if(s.round<rounds){s.round++;s.index=0;restSeconds=60;renderTimer()}
+ else{
+   const end=Date.now(),mins=Math.max(1,Math.round((end-(s.startedAt||end))/60000));
+   const notes=prompt("Workout complete! Add an optional note:")||"";
+   data.workouts.unshift({date:isoDay(),start:new Date(s.startedAt||end).toISOString(),end:new Date(end).toISOString(),minutes:mins,rounds,notes});
+   data.session={round:1,index:0,completed:[],startedAt:null};save();toast("Workout saved");showScreen("home");updateHome();return;
+ }
+ save();renderWorkout();
+};
+$("#prevEx").onclick=()=>{const s=data.session;if(s.index>0)s.index--;else if(s.round>1){s.round--;s.index=exercises.length-1}save();renderWorkout()};
+$("#resetWorkout").onclick=()=>{if(confirm("Reset the current workout?")){data.session={round:1,index:0,completed:[],startedAt:null};save();renderWorkout();toast("Workout reset")}};
+function renderTimer(){let m=Math.floor(restSeconds/60),s=String(restSeconds%60).padStart(2,"0");$("#restTimer").textContent=`${m}:${s}`}
+function setTimer(n){clearInterval(restInt);restInt=null;restSeconds=n;renderTimer();$("#toggleTimer").textContent="Start rest timer"}
+$("#timer30").onclick=()=>setTimer(30);$("#timer60").onclick=()=>setTimer(60);
+$("#toggleTimer").onclick=()=>{if(restInt){clearInterval(restInt);restInt=null;$("#toggleTimer").textContent="Resume rest timer"}else{if(restSeconds<=0)restSeconds=60;$("#toggleTimer").textContent="Pause timer";restInt=setInterval(()=>{restSeconds--;renderTimer();if(restSeconds<=0){clearInterval(restInt);restInt=null;$("#toggleTimer").textContent="Timer complete ✓";toast("Rest complete")}},1000)}};
+function streaks(){
+ const days=[...new Set(data.workouts.map(w=>w.date))].sort().reverse();let current=0,longest=0,run=0;
+ for(let i=0;i<days.length;i++){if(i===0||((new Date(days[i-1])-new Date(days[i]))/86400000)===1)run++;else run=1;longest=Math.max(longest,run)}
+ let d=new Date();for(let i=0;i<days.length;i++){let expected=isoDay(new Date(d.getTime()-i*86400000));if(days.includes(expected))current++;else if(i===0){d=new Date(d.getTime()-86400000);i--}else break}
+ return{current,longest};
+}
+function latestHealth(){return [...data.health].sort((a,b)=>b.date.localeCompare(a.date))[0]}
+function todayHealth(){return data.health.find(h=>h.date===isoDay())||{}}
+function updateHome(){
+ const st=streaks(),latest=latestHealth(),today=todayHealth(),mins=data.workouts.reduce((a,w)=>a+(w.minutes||0),0);
+ $("#heroStreak").textContent=st.current;$("#heroLast").textContent=data.workouts[0]?`Last workout: ${data.workouts[0].date}`:"Start your first workout";
+ $("#statWorkouts").textContent=data.workouts.length;$("#statMinutes").textContent=mins;$("#statWeight").textContent=latest?.weight?`${latest.weight} lb`:"—";$("#statProtein").textContent=`${today.protein||0}g`;
+ const total=+data.settings.rounds*exercises.length,done=data.session.completed.length,pct=Math.round(done/total*100)||0;
+ $("#homeProgress").style.width=`${pct}%`;$("#homeProgressText").textContent=`${pct}%`;
+ const protein=+(today.protein||0),pg=+data.settings.proteinGoal||180;$("#proteinBar").style.width=`${Math.min(100,protein/pg*100)}%`;$("#proteinGoalText").textContent=`${protein} / ${pg}g`;
+ const sw=+data.settings.startWeight,gw=+data.settings.goalWeight,cw=+(latest?.weight||0);
+ if(sw&&gw&&cw){const p=Math.max(0,Math.min(100,(sw-cw)/(sw-gw)*100));$("#weightBar").style.width=`${p}%`;$("#weightGoalText").textContent=`${cw} → ${gw} lb`}
+ else{$("#weightBar").style.width="0%";$("#weightGoalText").textContent="Not set"}
+}
+function renderProgress(){
+ const st=streaks(),mins=data.workouts.reduce((a,w)=>a+(w.minutes||0),0),now=new Date(),monthKey=isoDay(now).slice(0,7);
+ $("#progressCurrent").textContent=st.current;$("#progressLongest").textContent=st.longest;$("#progressHours").textContent=(mins/60).toFixed(1);$("#progressMonth").textContent=data.workouts.filter(w=>w.date.startsWith(monthKey)).length;
+ const names=["S","M","T","W","T","F","S"];let html=names.map(n=>`<div class="cal-head">${n}</div>`).join("");
+ const first=new Date(now.getFullYear(),now.getMonth(),1),last=new Date(now.getFullYear(),now.getMonth()+1,0);
+ for(let i=0;i<first.getDay();i++)html+='<div></div>';
+ const done=new Set(data.workouts.map(w=>w.date));
+ for(let d=1;d<=last.getDate();d++){const key=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;html+=`<div class="day ${done.has(key)?"done":""}">${d}</div>`}
+ $("#calendar").innerHTML=html;$("#calendarTitle").textContent=now.toLocaleString(undefined,{month:"long",year:"numeric"});
+ renderWeightChart();
+ $("#workoutLog").innerHTML=data.workouts.length?data.workouts.map(w=>`<div class="log-item"><b>${w.date} · ${w.rounds} rounds</b><small>${w.minutes} minutes${w.notes?` · ${w.notes}`:""}</small></div>`).join(""):'<div class="empty">No workouts logged yet.</div>';
+}
+function renderWeightChart(){
+ const entries=data.health.filter(x=>x.weight).sort((a,b)=>a.date.localeCompare(b.date)).slice(-12),el=$("#weightChart");
+ if(entries.length<2){el.innerHTML='<div class="empty">Add at least two weight entries to see a trend.</div>';return}
+ const W=700,H=200,p=25,vals=entries.map(x=>+x.weight),min=Math.min(...vals)-2,max=Math.max(...vals)+2;
+ const pts=entries.map((x,i)=>{let px=p+i*(W-2*p)/(entries.length-1),py=H-p-(+x.weight-min)/(max-min)*(H-2*p);return[px,py]}),path=pts.map((v,i)=>(i?"L":"M")+v.join(" ")).join(" ");
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" aria-label="Weight trend chart"><path d="${path}" fill="none" stroke="#167f73" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>${pts.map((v,i)=>`<circle cx="${v[0]}" cy="${v[1]}" r="7" fill="#ff9a62"/><text x="${v[0]}" y="${v[1]-14}" text-anchor="middle" font-size="18" fill="#132137">${vals[i]}</text>`).join("")}</svg>`;
+}
+function renderHealth(){
+ $("#healthDate").value=isoDay();
+ $("#healthLog").innerHTML=data.health.length?[...data.health].sort((a,b)=>b.date.localeCompare(a.date)).map(h=>`<div class="log-item"><b>${h.date}${h.weight?` · ${h.weight} lb`:""}</b><small>${[h.waist&&`${h.waist}" waist`,h.protein&&`${h.protein}g protein`,h.water&&`${h.water} oz water`,h.bp&&`BP ${h.bp}`,h.notes].filter(Boolean).join(" · ")}</small></div>`).join(""):'<div class="empty">No health entries yet.</div>';
+}
+$("#saveHealth").onclick=()=>{
+ const h={date:$("#healthDate").value||isoDay(),weight:$("#healthWeight").value,waist:$("#healthWaist").value,protein:$("#healthProtein").value,water:$("#healthWater").value,bp:$("#healthBP").value,notes:$("#healthNotes").value};
+ data.health=data.health.filter(x=>x.date!==h.date);data.health.push(h);save();toast("Health entry saved");renderHealth();updateHome();
+};
+function fillSettings(){const s=data.settings;$("#setRounds").value=s.rounds;$("#setProtein").value=s.proteinGoal;$("#setStartWeight").value=s.startWeight;$("#setGoalWeight").value=s.goalWeight;$("#setWeekly").value=s.weeklyGoal}
+$("#saveSettings").onclick=()=>{data.settings={rounds:+$("#setRounds").value,proteinGoal:+$("#setProtein").value,startWeight:$("#setStartWeight").value,goalWeight:$("#setGoalWeight").value,weeklyGoal:+$("#setWeekly").value};save();toast("Settings saved");updateHome();renderWorkout()};
+function download(name,text,type="text/plain"){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();URL.revokeObjectURL(a.href)}
+$("#backupJson").onclick=()=>download(`gregfit-backup-${isoDay()}.json`,JSON.stringify(data,null,2),"application/json");
+$("#exportCsv").onclick=()=>{let rows=[["Date","Minutes","Rounds","Notes"],...data.workouts.map(w=>[w.date,w.minutes,w.rounds,w.notes||""])];download(`gregfit-workouts-${isoDay()}.csv`,rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\n"),"text/csv")};
+$("#clearData").onclick=()=>{if(confirm("Delete all GregFit data on this device?")){data=structuredClone(defaults);save();location.reload()}};
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;$("#installBtn").style.display="inline-block"});
+$("#installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$("#installBtn").style.display="none"}};
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js");
+const hour=new Date().getHours();$("#greeting").textContent=`Good ${hour<12?"morning":hour<18?"afternoon":"evening"}, Greg`;
+fillSettings();renderWorkout();renderTimer();updateHome();
+</script>
+</body>
+</html>

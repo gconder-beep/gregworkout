@@ -1,1 +1,18 @@
-{"name":"GregFit Workout & Health Tracker","short_name":"GregFit","start_url":"./","display":"standalone","background_color":"#f3f6f8","theme_color":"#0b1726","description":"Greg's personal kettlebell workout, health, and progress tracker.","icons":[{"src":"assets/icon-192.png","sizes":"192x192","type":"image/png"},{"src":"assets/icon-512.png","sizes":"512x512","type":"image/png"}]}
+{
+  "name": "GregFit Personal Fitness Tracker",
+  "short_name": "GregFit",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7f9",
+  "theme_color": "#101a2d",
+  "description": "Greg's personal kettlebell workout, health, and progress tracker.",
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

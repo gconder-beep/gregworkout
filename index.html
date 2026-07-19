@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<title>Greg's Kettlebell Tracker</title>
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--text:#172033;--muted:#667085;--brand:#0f766e;--brand2:#115e59;--line:#d9dee7;--done:#dcfce7}
+*{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{position:sticky;top:0;z-index:5;background:#0f172a;color:#fff;padding:calc(14px + env(safe-area-inset-top)) 16px 14px}header h1{font-size:20px;margin:0}header p{margin:4px 0 0;color:#cbd5e1;font-size:13px}
+main{max-width:760px;margin:auto;padding:16px 14px calc(40px + env(safe-area-inset-bottom))}.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}.tabs button{padding:11px 8px;border:1px solid var(--line);border-radius:12px;background:#fff;font-weight:650}.tabs button.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#eef2f6;border-radius:12px;padding:10px;text-align:center}.stat b{font-size:20px;display:block}.stat span{font-size:12px;color:var(--muted)}
+.exercise-img{width:100%;height:270px;object-fit:contain;background:#fff;border-radius:14px;border:1px solid var(--line)}.placeholder{height:270px;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:center;background:#fafafa}.placeholder svg{width:80%;height:80%}.eyebrow{color:var(--brand);font-weight:750;font-size:13px;text-transform:uppercase;letter-spacing:.06em}.exercise h2{margin:5px 0;font-size:25px}.meta{color:var(--muted);font-size:14px;margin-bottom:10px}.cue{background:#ecfdf5;border-left:4px solid var(--brand);padding:10px 12px;border-radius:10px;font-size:14px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}button{font:inherit;cursor:pointer}.primary,.secondary,.danger{border-radius:12px;padding:12px 14px;font-weight:700}.primary{border:0;background:var(--brand);color:#fff}.primary:active{background:var(--brand2)}.secondary{background:#fff;border:1px solid var(--line)}.danger{background:#fff;border:1px solid #fca5a5;color:#b91c1c}
+.sequence-item{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#fff}.sequence-item.current{border:2px solid var(--brand)}.sequence-item.done{background:var(--done);opacity:.78}.num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#eef2f6;font-weight:750}.sequence-item small{display:block;color:var(--muted);margin-top:2px}
+label{display:block;font-weight:650;margin:10px 0 5px}input,textarea,select{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff}textarea{min-height:78px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.log{border:1px solid var(--line);border-radius:12px;padding:12px;margin:9px 0;background:#fff}.log h3{margin:0 0 3px;font-size:16px}.log p{margin:4px 0;color:var(--muted);font-size:14px}.empty{text-align:center;color:var(--muted);padding:28px 8px}.timer{font-size:32px;font-weight:800;text-align:center;margin:8px 0}.install-note{font-size:13px;color:var(--muted);line-height:1.45}.mini{font-size:12px;color:var(--muted)}
+@media(max-width:520px){.exercise-img,.placeholder{height:230px}.grid2{grid-template-columns:1fr}.actions{grid-template-columns:1fr 1fr}.stats{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header><h1>Greg's Kettlebell Tracker</h1><p>Workout sequence, timer, and progress log</p></header>
+<main>
+<div class="tabs"><button data-tab="workout" class="active">Workout</button><button data-tab="log">Log</button><button data-tab="settings">Setup</button></div>
+<section id="workout" class="panel active">
+  <div class="card stats"><div class="stat"><b id="roundStat">1/3</b><span>Round</span></div><div class="stat"><b id="stepStat">1/9</b><span>Exercise</span></div><div class="stat"><b id="elapsedStat">0:00</b><span>Elapsed</span></div></div>
+  <div class="card exercise">
+    <div id="category" class="eyebrow">Warm-up</div><h2 id="name"></h2><div id="meta" class="meta"></div>
+    <div id="visual"></div><div id="cue" class="cue"></div>
+    <div class="actions"><button id="prev" class="secondary">Previous</button><button id="next" class="primary">Complete & Next</button></div>
+  </div>
+  <div class="card"><div class="timer" id="restDisplay">1:00</div><div class="actions"><button id="rest30" class="secondary">30 sec</button><button id="rest60" class="secondary">60 sec</button></div><button id="restToggle" class="primary" style="width:100%;margin-top:10px">Start Rest Timer</button></div>
+  <div class="card"><b>Today's sequence</b><div id="sequence"></div></div>
+</section>
+<section id="log" class="panel">
+  <div class="card"><div class="grid2"><button id="exportCsv" class="secondary">Export CSV</button><button id="clearLogs" class="danger">Clear Log</button></div></div>
+  <div id="logList"></div>
+</section>
+<section id="settings" class="panel">
+  <div class="card">
+    <label for="rounds">Rounds</label><select id="rounds"><option>2</option><option selected>3</option><option>4</option></select>
+    <div class="grid2"><div><label for="lightWeight">Press weight</label><select id="lightWeight"><option selected>10 lb</option><option>15 lb</option></select></div><div><label for="heavyWeight">Main weight</label><select id="heavyWeight"><option>10 lb</option><option selected>15 lb</option></select></div></div>
+    <label for="notes">Notes for completed workout</label><textarea id="notes" placeholder="Energy level, soreness, what felt easy or difficult..."></textarea>
+    <button id="saveSettings" class="primary" style="width:100%;margin-top:12px">Save Setup</button>
+  </div>
+  <div class="card install-note"><b>Add it to your phone</b><p><b>iPhone:</b> Open the hosted app in Safari, tap Share, then “Add to Home Screen.”</p><p><b>Android:</b> Open it in Chrome, tap the menu, then “Install app” or “Add to Home screen.”</p><p>The log stays on that device. Use Export CSV occasionally as a backup.</p></div>
+</section>
+</main>
+<script>
+const defaultExercises=[
+{name:'March in Place',cat:'Warm-up',reps:'60 seconds',weight:'No weight',cue:'Stand tall and march at a comfortable pace.',img:null,kind:'march'},
+{name:'Kettlebell Swings',cat:'Strength',reps:'6 reps',weight:'heavy',cue:'Hinge at the hips and drive the bell forward with your hips—not your arms.',img:'assets/swing.png'},
+{name:'Overhead Press',cat:'Strength',reps:'3 each arm',weight:'light',cue:'Brace your core and press straight overhead without leaning back.',img:'assets/press.png'},
+{name:'Goblet Squat',cat:'Strength',reps:'6 reps',weight:'heavy',cue:'Hold the bell at your chest and sit down between your hips.',img:'assets/goblet-squat.png'},
+{name:'Bent-Over Row',cat:'Strength',reps:'8 each arm',weight:'light/heavy',cue:'Keep your back flat and pull your elbow toward your hip.',img:null,kind:'row'},
+{name:'Romanian Deadlift',cat:'Strength',reps:'8 reps',weight:'heavy',cue:'Push your hips back and keep the kettlebell close to your legs.',img:'assets/deadlift.png'},
+{name:'Dead Bug',cat:'Core',reps:'8 each side',weight:'No weight',cue:'Keep your lower back gently pressed into the floor and move slowly.',img:null,kind:'deadbug'},
+{name:'Plank',cat:'Core',reps:'20–30 seconds',weight:'No weight',cue:'Keep a straight line from shoulders to heels and squeeze your glutes.',img:null,kind:'plank'},
+{name:'Suitcase Carry',cat:'Core',reps:'30 seconds each side',weight:'heavy',cue:'Walk tall and resist leaning toward the kettlebell.',img:'assets/carry.png'}];
+let settings=JSON.parse(localStorage.getItem('kbSettings')||'null')||{rounds:3,light:'10 lb',heavy:'15 lb'};
+let state={round:1,index:0,done:new Set(),started:null,elapsedTimer:null,finished:false};
+let restSeconds=60,restTimer=null;
+const $=id=>document.getElementById(id);
+function weightText(w){if(w==='light')return settings.light;if(w==='heavy')return settings.heavy;if(w==='light/heavy')return settings.light+' or '+settings.heavy;return w}
+function svg(kind){const common='stroke="#172033" stroke-width="7" stroke-linecap="round" fill="none"';if(kind==='march')return `<div class="placeholder"><svg viewBox="0 0 300 220"><circle cx="150" cy="35" r="18" ${common}/><path d="M150 55v70M150 78l-35 28M150 78l38 22M150 125l-30 60M150 125l42 35" ${common}/><path d="M192 160q15-22 27-38" stroke="#0f766e" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M210 125l9-3-1 10" stroke="#0f766e" stroke-width="6" fill="none"/></svg></div>`;if(kind==='row')return `<div class="placeholder"><svg viewBox="0 0 300 220"><circle cx="105" cy="58" r="18" ${common}/><path d="M120 70l78 38 28 70M198 108l-30 70M145 82l-28 56M175 97l25 42" ${common}/><circle cx="205" cy="158" r="18" fill="#0f766e"/><path d="M240 162v-48M231 124l9-12 9 12" stroke="#0f766e" stroke-width="7" fill="none"/></svg></div>`;if(kind==='deadbug')return `<div class="placeholder"><svg viewBox="0 0 300 220"><circle cx="65" cy="130" r="16" ${common}/><path d="M82 130h115M110 130L80 82M110 130l35-45M190 130l42-43M190 130l48 43" ${common}/><path d="M240 85l24-23M253 63h12v12" stroke="#0f766e" stroke-width="7" fill="none"/></svg></div>`;return `<div class="placeholder"><svg viewBox="0 0 300 220"><circle cx="65" cy="88" r="16" ${common}/><path d="M82 96l145 50 45 15M110 105l-25 48H55" ${common}/><path d="M82 93l185 65" stroke="#0f766e" stroke-width="7" fill="none"/></svg></div>`}
+function render(){const e=defaultExercises[state.index];$('roundStat').textContent=state.round+'/'+settings.rounds;$('stepStat').textContent=(state.index+1)+'/'+defaultExercises.length;$('category').textContent=e.cat;$('name').textContent=e.name;$('meta').textContent=e.reps+' • '+weightText(e.weight);$('cue').textContent=e.cue;$('visual').innerHTML=e.img?`<img class="exercise-img" src="${e.img}" alt="Demonstration of ${e.name}">`:svg(e.kind);$('prev').disabled=state.round===1&&state.index===0;$('next').textContent=(state.round===settings.rounds&&state.index===defaultExercises.length-1)?'Finish Workout':'Complete & Next';$('sequence').innerHTML=defaultExercises.map((x,i)=>{const k=state.round+'-'+i;return `<div class="sequence-item ${i===state.index?'current':''} ${state.done.has(k)?'done':''}"><div class="num">${state.done.has(k)?'✓':i+1}</div><div><b>${x.name}</b><small>${x.reps} • ${weightText(x.weight)}</small></div></div>`}).join('')}
+function startElapsed(){if(state.started)return;state.started=Date.now();state.elapsedTimer=setInterval(()=>{const s=Math.floor((Date.now()-state.started)/1000);$('elapsedStat').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0')},1000)}
+function next(){startElapsed();state.done.add(state.round+'-'+state.index);if(state.index<defaultExercises.length-1){state.index++}else if(state.round<settings.rounds){state.round++;state.index=0;setRest(60)}else{finishWorkout();return}render()}
+function prev(){if(state.index>0)state.index--;else if(state.round>1){state.round--;state.index=defaultExercises.length-1}render()}
+function finishWorkout(){clearInterval(state.elapsedTimer);const duration=state.started?Math.max(1,Math.round((Date.now()-state.started)/60000)):0;const logs=JSON.parse(localStorage.getItem('kbLogs')||'[]');logs.unshift({id:Date.now(),date:new Date().toISOString(),rounds:settings.rounds,duration,light:settings.light,heavy:settings.heavy,notes:$('notes').value.trim()});localStorage.setItem('kbLogs',JSON.stringify(logs));alert('Workout saved to your log!');state={round:1,index:0,done:new Set(),started:null,elapsedTimer:null,finished:false};$('elapsedStat').textContent='0:00';$('notes').value='';render();renderLogs()}
+function setRest(s){clearInterval(restTimer);restTimer=null;restSeconds=s;$('restToggle').textContent='Start Rest Timer';updateRest()}
+function updateRest(){$('restDisplay').textContent=Math.floor(restSeconds/60)+':'+String(restSeconds%60).padStart(2,'0')}
+function toggleRest(){if(restTimer){clearInterval(restTimer);restTimer=null;$('restToggle').textContent='Resume Rest Timer';return}if(restSeconds<=0)restSeconds=60;$('restToggle').textContent='Pause';restTimer=setInterval(()=>{restSeconds--;updateRest();if(restSeconds<=0){clearInterval(restTimer);restTimer=null;$('restToggle').textContent='Rest Complete'}},1000)}
+function renderLogs(){const logs=JSON.parse(localStorage.getItem('kbLogs')||'[]');$('logList').innerHTML=logs.length?logs.map(l=>`<div class="log"><h3>${new Date(l.date).toLocaleDateString()} at ${new Date(l.date).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}</h3><p>${l.rounds} rounds • ${l.duration} min • ${l.light}/${l.heavy}</p>${l.notes?`<p>${escapeHtml(l.notes)}</p>`:''}</div>`).join(''):'<div class="card empty">No completed workouts yet.</div>'}
+function escapeHtml(s){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function exportCsv(){const logs=JSON.parse(localStorage.getItem('kbLogs')||'[]');if(!logs.length)return alert('No workouts to export.');const rows=[['Date','Time','Rounds','Duration Minutes','Press Weight','Main Weight','Notes'],...logs.map(l=>{const d=new Date(l.date);return[d.toLocaleDateString(),d.toLocaleTimeString(),l.rounds,l.duration,l.light,l.heavy,l.notes]})];const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='kettlebell-workout-log.csv';a.click();URL.revokeObjectURL(a.href)}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tabs button,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.tab).classList.add('active');if(b.dataset.tab==='log')renderLogs()}));
+$('next').addEventListener('click',next);$('prev').addEventListener('click',prev);$('rest30').addEventListener('click',()=>setRest(30));$('rest60').addEventListener('click',()=>setRest(60));$('restToggle').addEventListener('click',toggleRest);$('saveSettings').addEventListener('click',()=>{settings={rounds:Number($('rounds').value),light:$('lightWeight').value,heavy:$('heavyWeight').value};localStorage.setItem('kbSettings',JSON.stringify(settings));alert('Setup saved.');render()});$('exportCsv').addEventListener('click',exportCsv);$('clearLogs').addEventListener('click',()=>{if(confirm('Delete the entire workout log?')){localStorage.removeItem('kbLogs');renderLogs()}});
+$('rounds').value=settings.rounds;$('lightWeight').value=settings.light;$('heavyWeight').value=settings.heavy;render();renderLogs();updateRest();if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js');
+</script>
+</body>
+</html>

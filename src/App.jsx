@@ -112,7 +112,7 @@ export default function App() {
     <div className="page-grid">
       <section className="welcome-card panel">
         <div>
-          <span className="eyebrow">GregFit v6</span>
+          <span className="eyebrow">GregFit v6.1</span>
           <h1>Good {new Date().getHours()<12?'morning':new Date().getHours()<18?'afternoon':'evening'}, Greg</h1>
           <p>Let’s crush your goals today.</p>
         </div>
@@ -240,7 +240,7 @@ export default function App() {
       <label>Weekly workout goal<input name="weeklyGoal" type="number" min="1" max="7" defaultValue={data.settings.weeklyGoal}/></label>
       <label className="toggle"><input name="voice" type="checkbox" defaultChecked={data.settings.voice!==false}/><span>Voice exercise cues</span></label>
       <button className="primary-btn wide" type="submit">Save settings</button>
-      <button className="danger-btn wide" type="button" onClick={()=>{if(confirm('Reset all GregFit v6 data?')){localStorage.removeItem('gregfit_v6');location.reload()}}}>Reset all data</button>
+      <button className="danger-btn wide" type="button" onClick={()=>{if(confirm('Reset all GregFit v6.1 data?')){localStorage.removeItem('gregfit_v6');location.reload()}}}>Reset all data</button>
     </form>
   )
 
@@ -262,7 +262,7 @@ export default function App() {
       <aside className="sidebar">
         <div className="brand"><div className="brand-icon">G</div><strong>GregFit <small>v6</small></strong></div>
         <nav>{navItems.map(([id,Icon,label])=><button key={id} className={screen===id?'active':''} onClick={()=>setScreen(id)}><Icon size={19}/><span>{label}</span></button>)}</nav>
-        <div className="version-card"><span>Upgrade complete!</span><small>You’re running the latest version.</small><b>v6.0.0 ✓</b></div>
+        <div className="version-card"><span>Upgrade complete!</span><small>You’re running the latest version.</small><b>v6.1.0 ✓</b></div>
       </aside>
       <main className="main">{renderScreen()}</main>
       <nav className="mobile-nav">

@@ -1,32 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" role="img" aria-labelledby="title desc">
-<title id="title">Dead bug</title>
-<desc id="desc">Stylized GregFit exercise illustration.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="t d">
+<title id="t">Dead Bug</title><desc id="d">Professional GregFit exercise illustration.</desc>
 <defs>
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#eef8f5"/>
-    <stop offset="100%" stop-color="#dfeeea"/>
+    <stop offset="0" stop-color="#0b2a31"/><stop offset="1" stop-color="#071820"/>
   </linearGradient>
   <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#177f73"/>
-    <stop offset="100%" stop-color="#0e5c55"/>
+    <stop offset="0" stop-color="#24c98a"/><stop offset="1" stop-color="#11765d"/>
   </linearGradient>
-  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-    <feDropShadow dx="0" dy="10" stdDeviation="12" flood-opacity=".14"/>
-  </filter>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f2b386"/><stop offset="1" stop-color="#c97b55"/>
+  </linearGradient>
+  <linearGradient id="bell" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#3d4d57"/><stop offset="1" stop-color="#141d24"/>
+  </linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity=".35"/></filter>
 </defs>
-<rect width="720" height="520" rx="36" fill="url(#bg)"/>
-<ellipse cx="360" cy="466" rx="175" ry="22" fill="#17324d" opacity=".10"/>
+<rect width="900" height="560" rx="32" fill="url(#bg)"/>
+<ellipse cx="450" cy="505" rx="250" ry="22" fill="#000" opacity=".25"/>
 
 <g filter="url(#shadow)">
-  <circle cx="202" cy="292" r="40" fill="#f4b58b" stroke="#14263b" stroke-width="8"/>
-  <path d="M182 274 Q205 244 235 272" fill="#14263b"/>
-  <path d="M244 292 L430 292" stroke="#14263b" stroke-width="42" stroke-linecap="round"/>
-  <path d="M286 292 L222 184" stroke="#14263b" stroke-width="26" stroke-linecap="round"/>
-  <path d="M300 292 L390 190" stroke="#14263b" stroke-width="26" stroke-linecap="round"/>
-  <path d="M418 292 L500 196" stroke="#14263b" stroke-width="30" stroke-linecap="round"/>
-  <path d="M418 292 L505 365" stroke="#14263b" stroke-width="30" stroke-linecap="round"/>
-  <path d="M250 260 L430 260" stroke="url(#shirt)" stroke-width="74" stroke-linecap="round"/>
-  <path d="M520 150 L565 105" stroke="#ff8c5a" stroke-width="12"/>
-  <path d="M548 107 L568 102 L564 123" fill="none" stroke="#ff8c5a" stroke-width="10"/>
+
+<g transform="translate(245 340) scale(0.9)">
+  <ellipse cx="0" cy="0" rx="31" ry="38" fill="url(#skin)" stroke="#08151d" stroke-width="5"/>
+  <path d="M-28 -18 Q0 -50 30 -18 Q18 -38 -10 -41 Q-26 -34 -28 -18Z" fill="#111b22"/>
+  <path d="M18 6 q10 2 12 10" stroke="#7e4b35" stroke-width="3" fill="none"/>
 </g>
+<path d="M290 340 L565 340" stroke="url(#shirt)" stroke-width="88" stroke-linecap="round"/>
+<path d="M360 318 L295 190" stroke="url(#skin)" stroke-width="27" stroke-linecap="round"/>
+<path d="M390 318 L490 195" stroke="url(#skin)" stroke-width="27" stroke-linecap="round"/>
+<path d="M540 340 L655 245" stroke="#17242e" stroke-width="34" stroke-linecap="round"/>
+<path d="M540 340 L655 420" stroke="#17242e" stroke-width="34" stroke-linecap="round"/>
+</g>
+<path d="M700 220 L760 160" stroke="#ff8a58" stroke-width="12"/>
+<path d="M740 162 L765 155 L758 181" fill="none" stroke="#ff8a58" stroke-width="10"/>
+
 </svg>

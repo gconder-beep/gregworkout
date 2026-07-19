@@ -1,38 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" role="img" aria-labelledby="title desc">
-<title id="title">Suitcase carry</title>
-<desc id="desc">Stylized GregFit exercise illustration.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="t d">
+<title id="t">Suitcase Carry</title><desc id="d">Professional GregFit exercise illustration.</desc>
 <defs>
   <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#eef8f5"/>
-    <stop offset="100%" stop-color="#dfeeea"/>
+    <stop offset="0" stop-color="#0b2a31"/><stop offset="1" stop-color="#071820"/>
   </linearGradient>
   <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#177f73"/>
-    <stop offset="100%" stop-color="#0e5c55"/>
+    <stop offset="0" stop-color="#24c98a"/><stop offset="1" stop-color="#11765d"/>
   </linearGradient>
-  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-    <feDropShadow dx="0" dy="10" stdDeviation="12" flood-opacity=".14"/>
-  </filter>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f2b386"/><stop offset="1" stop-color="#c97b55"/>
+  </linearGradient>
+  <linearGradient id="bell" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#3d4d57"/><stop offset="1" stop-color="#141d24"/>
+  </linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity=".35"/></filter>
 </defs>
-<rect width="720" height="520" rx="36" fill="url(#bg)"/>
-<ellipse cx="360" cy="466" rx="175" ry="22" fill="#17324d" opacity=".10"/>
+<rect width="900" height="560" rx="32" fill="url(#bg)"/>
+<ellipse cx="450" cy="505" rx="250" ry="22" fill="#000" opacity=".25"/>
 
 <g filter="url(#shadow)">
-  <circle cx="350" cy="104" r="42" fill="#f4b58b" stroke="#14263b" stroke-width="8"/>
-  <path d="M320 82 Q350 46 384 82 Q372 64 338 66Z" fill="#14263b"/>
-  <path d="M306 150 Q350 130 394 151 L408 300 Q350 330 292 300 Z" fill="url(#shirt)" stroke="#14263b" stroke-width="8"/>
-  
-      <path d="M312 178 L245 286" stroke="#14263b" stroke-width="24" stroke-linecap="round"/>
-      <path d="M390 178 L452 286" stroke="#14263b" stroke-width="24" stroke-linecap="round"/>
-      <path d="M315 304 L278 430" stroke="#14263b" stroke-width="30" stroke-linecap="round"/>
-      <path d="M384 304 L425 430" stroke="#14263b" stroke-width="30" stroke-linecap="round"/>
-      <path d="M267 434 L225 451" stroke="#14263b" stroke-width="24" stroke-linecap="round"/>
-      <path d="M416 434 L458 451" stroke="#14263b" stroke-width="24" stroke-linecap="round"/>
-    
-  
-<g transform="translate(238 325) scale(0.75)" filter="url(#shadow)">
-  <path d="M-28 -10 C-20 -42,20 -42,28 -10" fill="none" stroke="#14263b" stroke-width="14" stroke-linecap="round"/>
-  <path d="M-44 -2 Q0 -24 44 -2 L55 56 Q0 88 -55 56 Z" fill="#ffb547" stroke="#14263b" stroke-width="8"/>
-</g><path d="M520 135 L520 330" stroke="#ff8c5a" stroke-width="12"/><text x="470" y="110" font-family="system-ui" font-size="28" fill="#14263b" font-weight="700">Stay tall</text>
+
+<g transform="translate(450 105) scale(1)">
+  <ellipse cx="0" cy="0" rx="31" ry="38" fill="url(#skin)" stroke="#08151d" stroke-width="5"/>
+  <path d="M-28 -18 Q0 -50 30 -18 Q18 -38 -10 -41 Q-26 -34 -28 -18Z" fill="#111b22"/>
+  <path d="M18 6 q10 2 12 10" stroke="#7e4b35" stroke-width="3" fill="none"/>
 </g>
+
+<g transform="translate(450 225) rotate(0) scale(1)">
+  <path d="M-58 -70 Q0 -98 58 -70 L72 62 Q0 100 -72 62 Z" fill="url(#shirt)" stroke="#08151d" stroke-width="7"/>
+  <path d="M-34 -67 Q0 -42 34 -67" fill="none" stroke="#d7f6ec" stroke-width="5" opacity=".8"/>
+  <circle cx="0" cy="-14" r="18" fill="#0f5c49" opacity=".55"/>
+  <text x="0" y="-5" text-anchor="middle" font-family="Arial" font-size="22" font-weight="900" fill="#d9fff3">G</text>
+</g>
+<path d="M405 178 L360 315" stroke="url(#skin)" stroke-width="27" stroke-linecap="round"/>
+<path d="M495 178 L555 300" stroke="url(#skin)" stroke-width="27" stroke-linecap="round"/>
+<path d="M420 292 L390 445" stroke="#17242e" stroke-width="34" stroke-linecap="round"/>
+<path d="M480 292 L515 445" stroke="#17242e" stroke-width="34" stroke-linecap="round"/>
+<g transform="translate(375 460) rotate(-4)"><path d="M-34 -8 Q8 -12 38 4 L28 18 H-34 Q-47 11 -34 -8Z" fill="#0b1015" stroke="#2d3c46" stroke-width="4"/></g><g transform="translate(530 460) rotate(4)"><path d="M-34 -8 Q8 -12 38 4 L28 18 H-34 Q-47 11 -34 -8Z" fill="#0b1015" stroke="#2d3c46" stroke-width="4"/></g>
+<g transform="translate(345 350) scale(0.72)" filter="url(#shadow)">
+<path d="M-28 -18 Q0 -48 28 -18" fill="none" stroke="#26343d" stroke-width="13" stroke-linecap="round"/>
+<path d="M-42 -7 Q0 -25 42 -7 L50 45 Q0 78 -50 45Z" fill="url(#bell)" stroke="#08151d" stroke-width="6"/>
+</g>
+</g>
+<path d="M675 150 L675 390" stroke="#ff8a58" stroke-width="12"/>
+<text x="675" y="120" text-anchor="middle" font-family="Arial" font-size="30" font-weight="700" fill="#ff9b6b">Stay tall</text>
+
 </svg>

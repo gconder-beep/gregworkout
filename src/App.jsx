@@ -9,7 +9,7 @@ import { usePersistentState } from './hooks/usePersistentState'
 import './styles/app.css'
 
 const defaults = {
-  settings: { rounds: 3, proteinGoal: 180, waterGoal: 100, startWeight: '', goalWeight: 250, weeklyGoal: 3, restSeconds: 60, voice: true },
+  settings: { rounds: 3, proteinGoal: 180, waterGoal: 100, startWeight: '', goalWeight: 250, weeklyGoal: 3, restSeconds: 60 },
   workouts: [],
   health: [],
   photos: [],
@@ -98,7 +98,7 @@ export default function App() {
   const saveSettings = e => {
     e.preventDefault()
     const form = new FormData(e.currentTarget)
-    patch(prev => ({ ...prev, settings:{ ...prev.settings, ...Object.fromEntries(form.entries()), voice:form.get('voice')==='on' } }))
+    patch(prev => ({ ...prev, settings:{ ...prev.settings, ...Object.fromEntries(form.entries()) } }))
   }
 
   const metricCards = [
@@ -112,7 +112,7 @@ export default function App() {
     <div className="page-grid">
       <section className="welcome-card panel">
         <div>
-          <span className="eyebrow">GregFit v6.1</span>
+          <span className="eyebrow">GregFit v6.2</span>
           <h1>Good {new Date().getHours()<12?'morning':new Date().getHours()<18?'afternoon':'evening'}, Greg</h1>
           <p>Let’s crush your goals today.</p>
         </div>
@@ -129,12 +129,12 @@ export default function App() {
 
       <section className="workout-card panel">
         <div className="workout-figure">
-          <img src={`${import.meta.env.BASE_URL}assets/illustrations/swing.svg`} alt="Kettlebell swing illustration" />
+          <img src={`${import.meta.env.BASE_URL}assets/illustrations/swing.jpg`} alt="Kettlebell swing illustration" />
         </div>
         <div className="workout-copy">
           <span className="pill">Today’s workout</span>
           <h2>Greg’s Full-Body Circuit</h2>
-          <p>9 exercises · About 25–35 minutes</p>
+          <p>8 exercises · About 25–35 minutes</p>
           <div className="bar"><div style={{width:`${progressPct}%`}}/></div>
           <b>{progressPct}% complete</b>
           <button className="primary-btn" onClick={()=>setScreen('workout')}><Play size={17} fill="currentColor"/>{progressPct?'Continue workout':'Start workout'}</button>
@@ -238,9 +238,9 @@ export default function App() {
       <label>Starting weight<input name="startWeight" type="number" step="0.1" defaultValue={data.settings.startWeight}/></label>
       <label>Goal weight<input name="goalWeight" type="number" step="0.1" defaultValue={data.settings.goalWeight}/></label>
       <label>Weekly workout goal<input name="weeklyGoal" type="number" min="1" max="7" defaultValue={data.settings.weeklyGoal}/></label>
-      <label className="toggle"><input name="voice" type="checkbox" defaultChecked={data.settings.voice!==false}/><span>Voice exercise cues</span></label>
+      
       <button className="primary-btn wide" type="submit">Save settings</button>
-      <button className="danger-btn wide" type="button" onClick={()=>{if(confirm('Reset all GregFit v6.1 data?')){localStorage.removeItem('gregfit_v6');location.reload()}}}>Reset all data</button>
+      <button className="danger-btn wide" type="button" onClick={()=>{if(confirm('Reset all GregFit v6.2 data?')){localStorage.removeItem('gregfit_v6');location.reload()}}}>Reset all data</button>
     </form>
   )
 
@@ -262,7 +262,7 @@ export default function App() {
       <aside className="sidebar">
         <div className="brand"><div className="brand-icon">G</div><strong>GregFit <small>v6</small></strong></div>
         <nav>{navItems.map(([id,Icon,label])=><button key={id} className={screen===id?'active':''} onClick={()=>setScreen(id)}><Icon size={19}/><span>{label}</span></button>)}</nav>
-        <div className="version-card"><span>Upgrade complete!</span><small>You’re running the latest version.</small><b>v6.1.0 ✓</b></div>
+        <div className="version-card"><span>Upgrade complete!</span><small>You’re running the latest version.</small><b>v6.2.0 ✓</b></div>
       </aside>
       <main className="main">{renderScreen()}</main>
       <nav className="mobile-nav">

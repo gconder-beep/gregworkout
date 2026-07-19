@@ -1,16 +1,13 @@
-# GregFit v6.1
+# GregFit v6.2
 
-This update replaces every old stick-style exercise asset with a new full-body athletic illustration set.
+This release replaces the drawn SVG figures with the approved realistic athlete artwork.
 
-Included:
-- March in Place
-- Kettlebell Swing
-- Overhead Press
-- Goblet Squat
-- Bent-Over Row
-- Romanian Deadlift
-- Dead Bug
-- Plank
-- Suitcase Carry
+Changes:
+- Eight-exercise circuit using the matching generated athlete set
+- Realistic start/end exercise demonstrations
+- Voice feature removed completely
+- Voice setting removed
+- Dashboard uses the realistic kettlebell image
+- Fresh v6 data remains supported
 
-Copy all files into the local gregworkout repository, replace matching files, then commit and push.
+Update the local gregworkout repository, replace matching files, commit, and push.

@@ -23,3 +23,8 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
 .mobile-nav{display:none}
 @media(max-width:980px){.app{grid-template-columns:1fr}.sidebar{display:none}.main{padding-bottom:86px}.mobile-nav{display:grid;position:fixed;left:0;right:0;bottom:0;grid-template-columns:repeat(5,1fr);background:#071720;border-top:1px solid #17303b;padding:8px;z-index:20}.mobile-nav button{display:grid;place-items:center;gap:3px;font-size:10px}.mobile-nav button.active{color:#2bdd9c}.workout-layout{grid-template-columns:1fr}.workout-info{order:2}}
 @media(max-width:720px){.main{padding:12px}.metric-grid{grid-template-columns:1fr 1fr}.workout-card{grid-template-columns:1fr}.workout-figure{min-height:220px}.two-col,.dashboard-lower{grid-template-columns:1fr}.welcome-card{align-items:flex-start}.welcome-card h1{font-size:27px}.streak-orb{width:88px;height:88px}.form{grid-template-columns:1fr}.form-title,.wide{grid-column:auto}.record-grid{grid-template-columns:1fr 1fr}.photo-grid{grid-template-columns:1fr 1fr}.exercise-hero{height:300px}.workout-timer-row{gap:8px}.timer-circle{width:100px;height:100px}.workout-timer-row strong{font-size:18px}}
+
+.exercise-hero.realistic { background:#11170f; }
+.exercise-hero.realistic img { width:100%; height:100%; object-fit:contain; }
+.exercise-count { font-weight:900; color:#2bdd9c; }
+.workout-figure img { object-fit:cover; object-position:center; }

@@ -1,29 +1,25 @@
-# GregFit v5
+# GregFit v6
 
-GregFit v5 adds:
+A complete visual reset with a premium dark fitness-app interface.
 
-- Redesigned dashboard
-- Monthly workout calendar
-- Automatic rest timer after each exercise
-- Optional spoken exercise and countdown cues
+## Highlights
+- Desktop sidebar and mobile bottom navigation
+- New dark dashboard inspired by the approved concept
+- Guided workout player
+- Voice cues and automatic rest timer
+- Workout calendar
+- Health and nutrition logging
+- Weight chart
 - Personal records
-- Weight milestones
-- Daily water and protein goals
-- Local progress-photo gallery
-- Existing workout and health history
-- CSV export
+- Goals and milestones
+- Progress photos
+- Fresh local data store (`gregfit_v6`) so old test data does not carry over
 - Automatic GitHub Pages deployment
 
-## Update the existing repository
+## Update
+Copy everything in this folder into your local `gregworkout` repository and replace matching files.
 
-Copy all files from this package into the local `gregworkout` repository folder and replace matching files.
-
-In GitHub Desktop:
-
-1. Summary: `Upgrade to GregFit v5`
+Then in GitHub Desktop:
+1. Summary: `Upgrade to GregFit v6`
 2. Commit to main
 3. Push origin
-
-The deployment workflow no longer requires a package-lock file for setup caching.
-
-GitHub Pages must remain configured to use **GitHub Actions**.

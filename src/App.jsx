@@ -3,14 +3,17 @@ import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'rec
 import BottomNav from './components/BottomNav'
 import StatCard from './components/StatCard'
 import WorkoutPlayer from './components/WorkoutPlayer'
+import WorkoutCalendar from './components/WorkoutCalendar'
+import ProgressPhotos from './components/ProgressPhotos'
 import { exercises } from './data/exercises'
 import { usePersistentState } from './hooks/usePersistentState'
 import './styles/app.css'
 
 const defaults = {
-  settings: { rounds: 3, proteinGoal: 180, startWeight: '', goalWeight: '', weeklyGoal: 3 },
+  settings: { rounds: 3, proteinGoal: 180, waterGoal: 100, startWeight: '', goalWeight: '', weeklyGoal: 3, restSeconds: 60, voice: true },
   workouts: [],
   health: [],
+  photos: [],
   session: { round: 1, index: 0, completed: [], startedAt: null }
 }
 
@@ -35,14 +38,27 @@ function calcStreak(workouts) {
   return { current, longest }
 }
 
+function milestones(latestWeight, goalWeight) {
+  if (!latestWeight || !goalWeight) return []
+  const current = Number(latestWeight), goal = Number(goalWeight)
+  const out = []
+  for (let n = Math.floor(current / 5) * 5; n >= goal; n -= 5) out.push(n)
+  return out.slice(0, 5)
+}
+
 export default function App() {
   const [screen, setScreen] = useState('home')
-  const [data, setData] = usePersistentState('gregfit_v4', defaults)
+  const [rawData, setData] = usePersistentState('gregfit_v4', defaults)
+  const data = { ...defaults, ...rawData, settings: { ...defaults.settings, ...(rawData.settings || {}) }, photos: rawData.photos || [] }
+
   const streak = useMemo(() => calcStreak(data.workouts), [data.workouts])
   const minutes = data.workouts.reduce((sum, w) => sum + Number(w.minutes || 0), 0)
   const latestHealth = [...data.health].sort((a,b) => b.date.localeCompare(a.date))[0] || {}
   const todayHealth = data.health.find(h => h.date === today()) || {}
   const progressPct = Math.round((data.session.completed.length / (Number(data.settings.rounds) * exercises.length)) * 100) || 0
+  const currentMonthCount = data.workouts.filter(w => w.date.startsWith(today().slice(0,7))).length
+  const weeklyGoalPct = Math.min(100, Math.round((currentMonthCount / Math.max(1, Number(data.settings.weeklyGoal) * 4)) * 100))
+  const goalSteps = milestones(latestHealth.weight, data.settings.goalWeight)
 
   const patch = updater => setData(prev => typeof updater === 'function' ? updater(prev) : updater)
 
@@ -54,10 +70,11 @@ export default function App() {
       minutes: Math.max(1, Math.round((end - session.startedAt) / 60000)),
       rounds: Number(data.settings.rounds),
       notes: note,
+      exercises: exercises.length * Number(data.settings.rounds)
     }
     patch(prev => ({
       ...prev,
-      workouts: [workout, ...prev.workouts],
+      workouts: [workout, ...(prev.workouts || [])],
       session: { round: 1, index: 0, completed: [], startedAt: null }
     }))
     setScreen('home')
@@ -67,18 +84,18 @@ export default function App() {
     event.preventDefault()
     const form = new FormData(event.currentTarget)
     const entry = Object.fromEntries(form.entries())
-    patch(prev => ({ ...prev, health: [...prev.health.filter(h => h.date !== entry.date), entry] }))
+    patch(prev => ({ ...prev, health: [...(prev.health || []).filter(h => h.date !== entry.date), entry] }))
     event.currentTarget.reset()
   }
 
   const saveSettings = (event) => {
     event.preventDefault()
     const form = new FormData(event.currentTarget)
-    patch(prev => ({ ...prev, settings: { ...prev.settings, ...Object.fromEntries(form.entries()) } }))
+    patch(prev => ({ ...prev, settings: { ...prev.settings, ...Object.fromEntries(form.entries()), voice: form.get('voice') === 'on' } }))
   }
 
   const exportCsv = () => {
-    const rows = [['Date','Minutes','Rounds','Notes'], ...data.workouts.map(w => [w.date,w.minutes,w.rounds,w.notes || ''])]
+    const rows = [['Date','Minutes','Rounds','Exercises','Notes'], ...data.workouts.map(w => [w.date,w.minutes,w.rounds,w.exercises || '',w.notes || ''])]
     const csv = rows.map(r => r.map(v => `"${String(v).replaceAll('"','""')}"`).join(',')).join('\n')
     const a = document.createElement('a')
     a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }))
@@ -88,6 +105,17 @@ export default function App() {
 
   const HomeScreen = () => (
     <div className="stack">
+      <section className="dashboard-summary">
+        <div>
+          <span className="eyebrow">Today</span>
+          <h2>Keep your momentum going</h2>
+          <p>{data.workouts.length ? `You have completed ${data.workouts.length} workouts so far.` : 'Your first completed workout starts the streak.'}</p>
+        </div>
+        <div className="goal-ring" style={{ '--value': `${weeklyGoalPct * 3.6}deg` }}>
+          <strong>{weeklyGoalPct}%</strong><span>monthly pace</span>
+        </div>
+      </section>
+
       <div className="stat-grid">
         <StatCard value={data.workouts.length} label="Total workouts" />
         <StatCard value={minutes} label="Minutes trained" />
@@ -100,27 +128,59 @@ export default function App() {
           <img src={`${import.meta.env.BASE_URL}assets/illustrations/swing.svg`} alt="Kettlebell swing illustration" />
         </div>
         <div className="feature-copy">
-          <span className="badge">Today</span>
+          <span className="badge">Today’s workout</span>
           <h2>Greg’s Full-Body Circuit</h2>
           <p>9 exercises · about 25–35 minutes</p>
           <div className="progress"><div style={{ width: `${progressPct}%` }} /></div>
           <strong>{progressPct}% complete</strong>
-          <button className="btn primary full" onClick={() => setScreen('workout')}>Start workout</button>
+          <button className="btn primary full" onClick={() => setScreen('workout')}>{progressPct ? 'Continue workout' : 'Start workout'}</button>
         </div>
       </section>
+
+      <div className="goal-grid">
+        <section className="card">
+          <div className="section-header"><div><h2>Protein</h2><p className="muted">Daily goal</p></div><strong>{todayHealth.protein || 0}/{data.settings.proteinGoal}g</strong></div>
+          <div className="progress"><div style={{ width: `${Math.min(100, Number(todayHealth.protein || 0) / Number(data.settings.proteinGoal || 1) * 100)}%` }} /></div>
+        </section>
+        <section className="card">
+          <div className="section-header"><div><h2>Water</h2><p className="muted">Daily goal</p></div><strong>{todayHealth.water || 0}/{data.settings.waterGoal} oz</strong></div>
+          <div className="progress"><div style={{ width: `${Math.min(100, Number(todayHealth.water || 0) / Number(data.settings.waterGoal || 1) * 100)}%` }} /></div>
+        </section>
+      </div>
+
+      {goalSteps.length > 0 && <section className="card">
+        <div className="section-header"><div><h2>Weight milestones</h2><p className="muted">Next steps toward {data.settings.goalWeight} lb</p></div></div>
+        <div className="milestones">
+          {goalSteps.map((goal, i) => <div className={i === 0 ? 'milestone next' : 'milestone'} key={goal}><b>{goal}</b><span>lb</span></div>)}
+        </div>
+      </section>}
     </div>
   )
 
   const ProgressScreen = () => {
     const chartData = [...data.health].filter(h => h.weight).sort((a,b) => a.date.localeCompare(b.date)).slice(-12)
+    const longest = data.workouts.reduce((max,w) => Math.max(max, Number(w.minutes || 0)), 0)
     return (
       <div className="stack">
         <div className="stat-grid">
           <StatCard value={streak.current} label="Current streak" />
           <StatCard value={streak.longest} label="Longest streak" />
           <StatCard value={(minutes / 60).toFixed(1)} label="Hours trained" />
-          <StatCard value={data.workouts.filter(w => w.date.startsWith(today().slice(0,7))).length} label="This month" />
+          <StatCard value={currentMonthCount} label="This month" />
         </div>
+
+        <WorkoutCalendar workouts={data.workouts} />
+
+        <section className="card">
+          <div className="section-header"><div><h2>Personal records</h2><p className="muted">Based on your saved workouts</p></div></div>
+          <div className="record-grid">
+            <div><strong>{data.workouts[0]?.minutes || 0}</strong><span>Latest workout min</span></div>
+            <div><strong>{longest}</strong><span>Longest workout min</span></div>
+            <div><strong>{Math.max(0, ...data.workouts.map(w => Number(w.rounds || 0)))}</strong><span>Most rounds</span></div>
+            <div><strong>{data.workouts.reduce((sum,w) => sum + Number(w.exercises || (w.rounds * exercises.length)),0)}</strong><span>Exercises completed</span></div>
+          </div>
+        </section>
+
         <section className="card">
           <h2>Weight trend</h2>
           <div className="chart-wrap">
@@ -128,7 +188,7 @@ export default function App() {
               <ResponsiveContainer width="100%" height={240}>
                 <LineChart data={chartData}>
                   <XAxis dataKey="date" hide />
-                  <YAxis domain={['dataMin - 2', 'dataMax + 2']} width={40} />
+                  <YAxis domain={['dataMin - 2', 'dataMax + 2']} width={42} />
                   <Tooltip />
                   <Line type="monotone" dataKey="weight" stroke="#167f73" strokeWidth={4} dot={{ r: 4 }} />
                 </LineChart>
@@ -136,6 +196,9 @@ export default function App() {
             ) : <p className="muted">Add at least two weight entries to see a trend.</p>}
           </div>
         </section>
+
+        <ProgressPhotos photos={data.photos} onChange={photos => patch(prev => ({ ...prev, photos }))} />
+
         <section className="card">
           <div className="section-header"><h2>Workout history</h2><button className="btn secondary" onClick={exportCsv}>Export CSV</button></div>
           <div className="history-list">
@@ -151,14 +214,14 @@ export default function App() {
   const HealthScreen = () => (
     <div className="stack">
       <form className="card form-grid" onSubmit={saveHealth}>
-        <h2>Health entry</h2>
+        <div className="wide"><h2>Health entry</h2><p className="muted">Log once a day or whenever you have new measurements.</p></div>
         <label>Date<input name="date" type="date" defaultValue={today()} required /></label>
         <label>Weight (lb)<input name="weight" type="number" step="0.1" /></label>
         <label>Waist (inches)<input name="waist" type="number" step="0.1" /></label>
         <label>Protein (g)<input name="protein" type="number" /></label>
         <label>Water (oz)<input name="water" type="number" /></label>
         <label>Blood pressure<input name="bp" placeholder="120/80" /></label>
-        <label className="wide">Notes<textarea name="notes" /></label>
+        <label className="wide">Notes<textarea name="notes" placeholder="Energy, sleep, soreness, recovery..." /></label>
         <button className="btn primary wide" type="submit">Save entry</button>
       </form>
       <section className="card">
@@ -174,12 +237,15 @@ export default function App() {
 
   const SettingsScreen = () => (
     <form className="card form-grid" onSubmit={saveSettings}>
-      <h2>Settings</h2>
+      <div className="wide"><h2>Settings</h2><p className="muted">Customize your goals and workout flow.</p></div>
       <label>Workout rounds<select name="rounds" defaultValue={data.settings.rounds}><option>2</option><option>3</option><option>4</option></select></label>
+      <label>Rest time<select name="restSeconds" defaultValue={data.settings.restSeconds}><option value="30">30 seconds</option><option value="45">45 seconds</option><option value="60">60 seconds</option><option value="90">90 seconds</option></select></label>
       <label>Protein goal<input name="proteinGoal" type="number" defaultValue={data.settings.proteinGoal} /></label>
+      <label>Water goal (oz)<input name="waterGoal" type="number" defaultValue={data.settings.waterGoal} /></label>
       <label>Starting weight<input name="startWeight" type="number" step="0.1" defaultValue={data.settings.startWeight} /></label>
       <label>Goal weight<input name="goalWeight" type="number" step="0.1" defaultValue={data.settings.goalWeight} /></label>
       <label>Weekly workout goal<input name="weeklyGoal" type="number" min="1" max="7" defaultValue={data.settings.weeklyGoal} /></label>
+      <label className="toggle-label"><input name="voice" type="checkbox" defaultChecked={data.settings.voice !== false} /> Voice exercise cues</label>
       <button className="btn primary wide" type="submit">Save settings</button>
     </form>
   )
@@ -188,7 +254,7 @@ export default function App() {
     <div className="app-shell">
       <header className="hero">
         <div>
-          <small>GregFit</small>
+          <small>GregFit v5</small>
           <h1>Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}, Greg</h1>
           <p>Your personal strength and health tracker</p>
         </div>

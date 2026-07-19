@@ -1,28 +1,29 @@
-# GregFit v4
+# GregFit v5
 
-A React/Vite fitness tracker built for Greg.
+GregFit v5 adds:
 
-## Features
-- Mobile dashboard
-- Guided kettlebell workout player
-- Custom exercise illustrations
-- Workout history and streaks
-- Weight tracking chart
-- Protein, water, waist and blood-pressure logs
-- Local device storage
+- Redesigned dashboard
+- Monthly workout calendar
+- Automatic rest timer after each exercise
+- Optional spoken exercise and countdown cues
+- Personal records
+- Weight milestones
+- Daily water and protein goals
+- Local progress-photo gallery
+- Existing workout and health history
 - CSV export
 - Automatic GitHub Pages deployment
 
-## Deploying
+## Update the existing repository
 
-Upload this entire project to the root of the `gregworkout` GitHub repository.
+Copy all files from this package into the local `gregworkout` repository folder and replace matching files.
 
-Then change GitHub Pages to:
+In GitHub Desktop:
 
-**Settings → Pages → Source → GitHub Actions**
+1. Summary: `Upgrade to GregFit v5`
+2. Commit to main
+3. Push origin
 
-Every commit to `main` will automatically build and publish the app.
+The deployment workflow no longer requires a package-lock file for setup caching.
 
-Published address:
-
-`https://gconder-beep.github.io/gregworkout/`
+GitHub Pages must remain configured to use **GitHub Actions**.
